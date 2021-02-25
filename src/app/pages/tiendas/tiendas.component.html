@@ -1,0 +1,58 @@
+<form class="form-horizontal p-t-20"
+    [formGroup]="tiendaForm"
+    (submit)="agregarTienda()"> 
+
+    <div class="form-group row">                                                                                
+        <div class="col-sm-5">
+            <div class="input-group">                
+                <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
+            </div>
+        </div>        
+    </div>
+
+    <div class="form-group row">        
+
+        <div class="col-sm-9 align-self-end">
+            <button type="submit" 
+                class="btn btn-success waves-effect waves-light"
+                [disabled]="tiendaForm.invalid">
+                <i class="fa fa-plus-circle"></i>
+                Nueva Tienda
+            </button>
+            
+        </div>
+
+    </div>
+
+  
+</form>
+
+<div class="table-responsive scroll-y">
+    <span *ngIf="tiendas.length == 0">No hay tiendas registradas</span>
+    <span *ngIf="tiendas.length > 0">         
+        <table class="table m-t-0 table-hover animated fadeIn">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                               
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody >                                                 
+                <tr *ngFor="let t of tiendas" class="footable-odd">                  
+                    <td>
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="Nombre de la tienda"
+                                [(ngModel)]="t.NOMBRE"
+                        />
+                    </td>
+                    <td class="text-nowrap text-center">
+                        <span (click)="guardarCambios( t )" data-toggle="tooltip" data-original-title="Guardar cambios"><i class="fa fa-pencil ext-inverse m-r-10 cursor"></i></span>
+
+                    </td>                                            
+                </tr>                                                         
+            </tbody>              
+        </table>
+    </span> 
+</div>   
