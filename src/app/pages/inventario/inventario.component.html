@@ -1,1 +1,115 @@
-<p>inventario works!</p>
+<form class="form-horizontal p-t-20"
+    [formGroup]="inventarioForm"
+    (submit)="agregarInventario()"> 
+
+    <div class="form-group row animated fadeIn" >       
+        <div class="col-sm-5">
+            <div class="input-group">    
+                <select class="form-control"
+                            formControlName="tienda">
+                    <option value="">Seleccione Tienda</option>
+                    <option *ngFor="let t of tiendas" [value]="t.ID_TIENDA">{{ t.NOMBRE }}</option>
+                </select>                                
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row animated fadeIn" >       
+        <div class="col-sm-5">
+            <div class="input-group">    
+                <select class="form-control"
+                            formControlName="articulo">
+                    <option value="">Seleccione Artículo</option>
+                    <option *ngFor="let a of articulos" [value]="a.ID_ARTICULO">{{ a.NOMBRE_ARTICULO }}</option>
+                </select>                                
+            </div>
+        </div>
+    </div>
+
+    <span *ngIf="seleccionCategoria ! ''" class="animated fadeIn">
+        
+        <div class="form-group row">
+            <span class="col-sm-2 control-label">Categoría: </span>
+            <span class="col-sm-3 control-label">{{ seleccionCategoria }}</span>        
+        </div>
+
+    </span>
+
+    <div class="form-group row">                                                                                
+        <div class="col-sm-5">
+            <div class="input-group">                
+                <input type="text" class="form-control" formControlName="cantidad" placeholder="Cantidad">
+            </div>
+        </div>        
+    </div>
+
+    <div class="form-group row">        
+
+        <div class="col-sm-9 align-self-end">
+            <button type="submit" 
+                class="btn btn-success waves-effect waves-light"
+                [disabled]="inventarioForm.invalid">
+                <i class="fa fa-plus-circle"></i>
+                Nuevo Inventario
+            </button>            
+        </div>
+    </div>  
+</form>
+
+<div class="row animated fadeIn fast"
+        *ngIf="cargandoInventario">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>           
+        </div>
+                
+    </div>
+</div>
+<div class="table-responsive scroll-y" *ngIf="!cargandoInventario">
+      <span >
+        <table class="table m-t-0 table-hover animated fadeIn">
+            <thead>
+                <tr>
+                    <th>Tienda</th>
+                    
+                    <th>Articulo</th>
+
+                    <th>Categoria</th>
+
+                    <th>Cantidad</th>
+                               
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody >                                                 
+                <tr *ngFor="let i of inventario" class="footable-odd">                  
+                    <td>
+                        {{i.NOMBRE_TIENDA}}
+                    </td>
+                    <td>
+                        {{i.NOMBRE_ARTICULO}}
+                    </td>
+                    <td>
+                        {{i.NOMBRE_CATEGORIA}}
+                    </td>
+                    <td>
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="Cantidad del articulo"
+                                [(ngModel)]="i.CANTIDAD"
+                        />
+                    </td>
+                    
+                    <td class="text-nowrap text-center">
+                        
+                        <span (click)="guardarCambios( i )" data-toggle="tooltip" data-original-title="Guardar cambios"><i class="fa fa-pencil ext-inverse m-r-10 cursor"></i></span>
+                     
+                    </td>                                            
+                </tr>                                                         
+            </tbody>              
+        </table>
+    </span> 
+</div>   
+

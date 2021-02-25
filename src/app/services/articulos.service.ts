@@ -16,28 +16,23 @@ export class ArticulosService {
   cargarArticulos(){
     const url = `${ base_url }/articulos`;
 
-    console.log( 'url: ', url);
-
     return this.http.get( url )
           .pipe(
-            map( (resp: {ok: boolean, Tiendas: any}) => {
-              return resp.Tiendas
+            map( (resp: {ok: boolean, Articulos: any}) => {
+              return resp.Articulos
             })
           )
   }
 
   crearArticulo( articulo : { nombre: string, id_categoria: number } ){
-    console.log( 'crearArticulo : ', articulo );
 
     const url = `${ base_url }/articulos`;
     return this.http.post( url,  articulo );
   }
 
-  actualizarArticulo( ID_ARTICULO: number, NOMBRE:string, ID_CATEGORIA:number ){
+  actualizarArticulo( ID_ARTICULO: number, NOMBRE_ARTICULO:string, ID_CATEGORIA:number ){
 
-    console.log( 'service id:', ID_ARTICULO);
-
-    const url = `${ base_url }/tiendas/${ID_ARTICULO}`;
-    return this.http.put( url, { NOMBRE, ID_ARTICULO , ID_CATEGORIA} );
+    const url = `${ base_url }/articulos/${ID_ARTICULO}`;
+    return this.http.put( url, { NOMBRE_ARTICULO, ID_CATEGORIA} );
   }
 }

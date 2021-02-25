@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-
 const base_url = environment.base_url;
 
 @Injectable({

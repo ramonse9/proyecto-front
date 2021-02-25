@@ -35,31 +35,22 @@ export class TiendasComponent implements OnInit {
 
     this.cargandoTiendas = true;
 
-    console.log( 'antes cargarTiendas()');
-
     const respTiendas = await this.tiendaService.cargarTiendas().toPromise();
-
-    console.log( 'despues cargarTiendas(): ', respTiendas );
 
     this.tiendas = respTiendas
     
     this.cargandoTiendas = false;
   }
 
-
   async agregarTienda(){
 
     const { nombre } = this.tiendaForm.value;
-    console.log( 'this.tiendaForm.value: ', this.tiendaForm.value  );
-    console.log( 'nombre: ', nombre  );
 
     const tienda = {
       nombre
     }
 
-    const respTiendas = await this.tiendaService.crearTienda( tienda ).toPromise();
-
-    console.log( 'despues cargarTiendas(): ', respTiendas );
+    await this.tiendaService.crearTienda( tienda ).toPromise();
 
     await this.cargarTiendas();
  
@@ -67,19 +58,12 @@ export class TiendasComponent implements OnInit {
 
   guardarCambios( t: any){
 
-    console.log( 'tienda:' , t );
-
-    console.log( ' t.id_tienda: ', t.id_tienda  );
-    console.log( ' t.nombre: ', t.nombre);
-
     this.tiendaService.actualizarTienda( t.ID_TIENDA, t.NOMBRE )
               .subscribe( resp => {
 
                 Swal.fire( 'Actualizado', t.NOMBRE );
 
               });
-
-
   }
 
 }

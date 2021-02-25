@@ -27,7 +27,19 @@
   
 </form>
 
-<div class="table-responsive scroll-y">
+<div class="row animated fadeIn fast"
+        *ngIf="cargandoTiendas">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>           
+        </div>
+                
+    </div>
+</div>
+
+<div class="table-responsive scroll-y" *ngIf="!cargandoTiendas" >
     <span *ngIf="tiendas.length == 0">No hay tiendas registradas</span>
     <span *ngIf="tiendas.length > 0">         
         <table class="table m-t-0 table-hover animated fadeIn">

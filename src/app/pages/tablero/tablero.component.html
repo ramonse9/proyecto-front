@@ -1,1 +1,92 @@
-<p>tablero works!</p>
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+      
+                <input type="text"
+                        class="form-control"
+                        placeholder="Buscar articulo..."                       
+                        
+                        (keyup)="buscar( txtTermino.value) "
+                        #txtTermino/>                          
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast"
+        *ngIf="cargandoInventario">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>           
+        </div>
+                
+    </div>
+</div>
+
+<div class="row animated fadeIn fast"
+    *ngIf="!cargandoInventario">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+             
+                <h4 class="card-title">Articulos Registrados en Tiendas (<span class="badge badge-primary"><strong> {{inventarioOrdenado.length || 0}}</strong></span>)</h4>
+                
+                <small class="badge badge-info" >*Seleccione la tienda para filtrar</small>
+                <select class="custom-select b-0 cursor "
+                            (change)="filtrarTienda($event)"
+                            [(ngModel)]='seleccionTienda'>                                    
+                        <option *ngFor="let fr of filtroTiendas" >
+                            {{fr}}                                                                            
+                        </option>                                   
+                </select>
+
+                
+                <div class="table-responsive">
+                    <small class="badge badge-success" >*Click en el encabezado para ordenar</small>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th (click)="ordenar('ID_TIENDA')" class="cursor">Tienda</th>
+                                <th (click)="ordenar('NOMBRE_TIENDA')" class="cursor">Tienda Nombre</th>
+                                <th (click)="ordenar('ID_ARTICULO')" class="cursor">Articulo</th>
+                                <th (click)="ordenar('NOMBRE_ARTICULO')" class="cursor">Articulo Nombre</th>
+                                <th (click)="ordenar('ID_CATEGORIA')" class="cursor">Categoria</th>
+                                <th (click)="ordenar('NOMBRE_CATEGORIA')" class="cursor">Categoria Nombre</th>
+                                <th (click)="ordenar('CANTIDAD')" class="cursor">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of inventarioOrdenado">
+                                <td>{{ i.ID_TIENDA }}</td>
+                                <td>
+                                    <strong>
+                                        {{ i.NOMBRE_TIENDA }}
+                                    </strong> 
+                                </td>                               
+                                <td>{{ i.ID_ARTICULO}}</td>
+                                <td>
+                                    <strong>
+                                        {{ i.NOMBRE_ARTICULO }}
+                                    </strong> 
+                                </td>
+                                <td>{{ i.ID_CATEGORIA}}</td>
+                                <td>
+                                    <strong>
+                                        {{ i.NOMBRE_CATEGORIA }}
+                                    </strong> 
+                                </td>
+                                <td>{{ i.CANTIDAD}}</td>
+                            </tr> 
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

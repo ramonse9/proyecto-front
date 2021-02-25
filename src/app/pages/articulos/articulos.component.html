@@ -10,6 +10,19 @@
         </div>        
     </div>
 
+    <div class="form-group row animated fadeIn" >       
+        <div class="col-sm-5">
+            <div class="input-group">    
+                <select class="form-control"
+                            formControlName="categoria">
+                    <option value="">Seleccione Categoria</option>
+                    <option *ngFor="let c of categorias" [value]="c.ID_CATEGORIA">{{ c.NOMBRE }}</option>
+                </select>                                
+            </div>
+        </div>
+    </div>
+
+
     <div class="form-group row">        
 
         <div class="col-sm-9 align-self-end">
@@ -18,20 +31,24 @@
                 [disabled]="articuloForm.invalid">
                 <i class="fa fa-plus-circle"></i>
                 Nuevo Articulo
-            </button>
-            
+            </button>            
         </div>
-
-    </div>
-
-  
+    </div>  
 </form>
 
-<div class="table-responsive scroll-y">
-    <!--<span *ngIf="articulos.length == 0">No hay articulos registrados</span>-->
-
-    <!--<span *ngIf="articulos.length > 0">      -->
-    <span >         
+<div class="row animated fadeIn fast"
+        *ngIf="cargandoArticulos">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>           
+        </div>
+                
+    </div>
+</div>
+<div class="table-responsive scroll-y" *ngIf="!cargandoArticulos">
+    <span >
         <table class="table m-t-0 table-hover animated fadeIn">
             <thead>
                 <tr>
@@ -47,13 +64,16 @@
                     <td>
                         <input type="text" 
                                 class="form-control" 
-                                placeholder="Nombre de la tienda"
-                                [(ngModel)]="a.NOMBRE"
+                                placeholder="Nombre del articulo"
+                                [(ngModel)]="a.NOMBRE_ARTICULO"
                         />
                     </td>
-                    <td class="text-nowrap text-center">
-                        <span (click)="guardarCambios( t )" data-toggle="tooltip" data-original-title="Guardar cambios"><i class="fa fa-pencil ext-inverse m-r-10 cursor"></i></span>
-
+                    <td>
+                        {{a.NOMBRE_CATEGORIA}}
+                    </td>
+                    <td class="text-nowrap text-center">                        
+                        <span (click)="guardarCambios( a )" data-toggle="tooltip" data-original-title="Guardar cambios"><i class="fa fa-pencil ext-inverse m-r-10 cursor"></i></span>
+                        
                     </td>                                            
                 </tr>                                                         
             </tbody>              
