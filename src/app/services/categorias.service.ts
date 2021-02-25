@@ -15,8 +15,6 @@ export class CategoriasService {
   cargarCategorias(){
     const url = `${ base_url }/categorias`;
 
-    console.log( 'url: ', url);
-
     return this.http.get( url )
           .pipe(
             map( (resp: {ok: boolean, Categorias: any}) => {
