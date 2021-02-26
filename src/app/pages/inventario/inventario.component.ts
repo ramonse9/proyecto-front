@@ -87,6 +87,8 @@ export class InventarioComponent implements OnInit {
 
     this.cargandoInventario = true;
 
+
+
     this.inventarioService.cargarInventario()
           .subscribe( resp =>{
             this.inventario = resp;
