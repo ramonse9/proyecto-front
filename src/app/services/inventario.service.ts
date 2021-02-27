@@ -33,4 +33,9 @@ export class InventarioService {
     return this.http.put( url, {  ID_TIENDA, ID_ARTICULO, CANTIDAD } );
   }
 
+  eliminarInventario( ID_INVENTARIO: number, ID_TIENDA: number, ID_ARTICULO: number ){
+    const url = `${ base_url }/inventario/eliminar/${ID_INVENTARIO}`;
+    return this.http.post( url, {  ID_TIENDA, ID_ARTICULO } );
+  }
+
 }

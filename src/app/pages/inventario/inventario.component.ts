@@ -127,5 +127,13 @@ export class InventarioComponent implements OnInit {
     await this.cargarInventario();
 
   }
+  
+  async eliminar(i: any){
+    
+    await this.inventarioService.eliminarInventario( i.ID_INVENTARIO, i.ID_TIENDA, i.ID_ARTICULO ).toPromise();
+                
+    await this.cargarInventario();
+
+  }
 
 }
