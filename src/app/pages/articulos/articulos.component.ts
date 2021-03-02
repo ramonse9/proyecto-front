@@ -46,7 +46,22 @@ export class ArticulosComponent implements OnInit {
 
     const respArticulos = await this.articuloService.cargarArticulos().toPromise();
 
-    this.articulos = respArticulos
+    this.articulos = respArticulos;
+    
+    
+    //asigno el listado de categorias sin repetir a los articulos
+    this.articulos.map( a => a.categorias_nombres_varios = [ ...new Set( this.articulos.filter( a2 => a2.NOMBRE_ARTICULO === a.NOMBRE_ARTICULO ).map( a3 => a3.NOMBRE_CATEGORIA) ) ]  );
+
+    
+    //Obtengo el listado de articulos sin repetir
+    const articulosFiltro = [ ...new Set( this.articulos.map( a => a.NOMBRE_ARTICULO) )]  ;
+    
+    
+    //Ontengo el arrelgo completo de articulos que no estan repetidos
+    const nuevosArticulos = articulosFiltro.map( af => this.articulos.find( a => a.NOMBRE_ARTICULO === af ) ) ;
+    
+    //Asigno el listado de articulos al arreglo original para que se muestre
+    this.articulos = nuevosArticulos.filter( na => na);
     
     this.cargandoArticulos = false;
   }  
@@ -56,6 +71,17 @@ export class ArticulosComponent implements OnInit {
     const { nombre, categoria } = this.articuloForm.value;
 
     const id_categoria = categoria;
+
+    console.log( 'this.articulos: ', this.articulos );
+
+
+    const registrado = this.articulos.find( a => a.NOMBRE_ARTICULO === nombre && a.ID_CATEGORIA == categoria  );
+
+    if(registrado ){
+      Swal.fire( 'Problema', 'Articulo ya registado');
+      return;
+    }
+    
 
     const articulo = {
       nombre,

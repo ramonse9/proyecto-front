@@ -69,7 +69,10 @@
                         />
                     </td>
                     <td>
-                        {{a.NOMBRE_CATEGORIA}}
+                        <!--{{a.NOMBRE_CATEGORIA}}-->                        
+                        <span *ngFor="let cnv of  a.categorias_nombres_varios">
+                            {{ cnv }}, 
+                        </span>
                     </td>
                     <td class="text-nowrap text-center">                        
                         <span (click)="guardarCambios( a )" data-toggle="tooltip" data-original-title="Guardar cambios"><i class="fa fa-pencil ext-inverse m-r-10 cursor"></i></span>
